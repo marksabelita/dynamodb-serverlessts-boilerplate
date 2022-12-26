@@ -75,7 +75,7 @@ const serverless: AWS = {
     //   basePath: '',
     //   stage: '${sls:stage}',
     //   createRoute53Record: true,
-    //   certificateName: 'precogs.co',
+    //   certificateName: 'certificate.name',
     // },
   },
   useDotenv: true,
