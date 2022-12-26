@@ -5,6 +5,7 @@ export const dynamoDbResource: AWS['resources']['Resources'] = {
     Type: 'AWS::DynamoDB::Table',
     Properties: {
       BillingMode: 'PAY_PER_REQUEST',
+      TableName: '${env:DYNAMODB_TABLE_NAME}',
       AttributeDefinitions: [
         {
           AttributeName: 'PK',
@@ -33,22 +34,24 @@ export const dynamoDbResource: AWS['resources']['Resources'] = {
           KeyType: 'RANGE',
         },
       ],
-      GlobalSecondaryIndexes: {
-        IndexName: 'GSI1',
-        KeySchema: [
-          {
-            AttributeName: 'GSI1PK',
-            KeyType: 'HASH',
+      GlobalSecondaryIndexes: [
+        {
+          IndexName: 'GSI1',
+          KeySchema: [
+            {
+              AttributeName: 'GSI1PK',
+              KeyType: 'HASH',
+            },
+            {
+              AttributeName: 'GSI1SK',
+              KeyType: 'RANGE',
+            },
+          ],
+          Projection: {
+            ProjectionType: 'ALL',
           },
-          {
-            AttributeName: 'GSI1SK',
-            KeyType: 'RANGE',
-          },
-        ],
-        Projection: {
-          ProjectionType: 'ALL',
         },
-      },
+      ],
     },
   },
 }

@@ -34,5 +34,8 @@
               "endOfLine": "auto"    
           }
       ]
+  },
+  "globals": {
+    "__dirname": true
   }
 }

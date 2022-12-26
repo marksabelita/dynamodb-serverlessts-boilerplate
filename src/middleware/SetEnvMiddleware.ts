@@ -1,4 +1,4 @@
-import { CustomContext } from '../interface/context'
+import { ICustomContext } from '../interface/context.interface'
 import { HTTP_CODE } from '../interface/enums/http'
 import {
   ENVIRONMENTS,
@@ -9,7 +9,7 @@ import { error } from '../util/response'
 
 export const SetEnvMiddleware = () => {
   const before = async (request) => {
-    const context: CustomContext = request.context
+    const context: ICustomContext = request.context
     const { logger } = context
 
     logger.info('Set logger middleware')

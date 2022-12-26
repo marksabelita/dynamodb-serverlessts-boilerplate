@@ -1,4 +1,4 @@
-import { CustomContext } from '../interface/context'
+import { ICustomContext } from '../interface/context.interface'
 import { error } from '../util/response'
 import { AsyncValidationOptions, Schema } from 'joi'
 import { HTTP_CODE } from '../interface/enums/http'
@@ -9,7 +9,7 @@ export const EventBodyValidationMiddleware = (
 ) => {
   const before = async (request) => {
     try {
-      const context: CustomContext = request.context
+      const context: ICustomContext = request.context
       const { body: eventBody } = request.event
       const { logger } = context
 

@@ -1,7 +1,7 @@
 import middy from '@middy/core'
 import warmup from '@middy/warmup'
 import { LoggerMiddleware } from '../../middleware/LoggerMiddleware'
-import { postSample } from '../../functions/Module/Sample/Post'
+import { postSample } from '../../functions/Sample/Post'
 import { SetEnvMiddleware } from '../../middleware/SetEnvMiddleware'
 // import { AuthMiddleware } from '../../middleware/AuthMiddleware'
 import httpErrorHandler from '@middy/http-error-handler'

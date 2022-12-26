@@ -2,9 +2,9 @@ import { Context } from 'aws-lambda'
 import { SecretVariables } from '../util/secrets'
 import { ENVIRONMENTS } from '../util/environments'
 import { Logger } from '../util/log'
-import { IGlobalTokenPayload } from './auth'
+import { IGlobalTokenPayload } from './auth.interface'
 
-export interface CustomContext<Event = any, Query = any> extends Context {
+export interface ICustomContext<Event = any, Query = any> extends Context {
   logger: Logger
   env: ENVIRONMENTS
   body: Event

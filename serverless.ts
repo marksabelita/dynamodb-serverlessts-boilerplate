@@ -5,7 +5,9 @@ import { dynamoDbResource } from './src/resources/stacks/dynamo'
 
 const environment = {
   ENV: '${env:ENV}',
-  TABLE_NAME: { Ref: 'LokalsTable' },
+  REGION: '${env:REGION}',
+  DYNAMODB_LOCAL_ENDPOINT: '${env:DYNAMODB_LOCAL_ENDPOINT}',
+  DYNAMODB_TABLE_NAME: '${env:DYNAMODB_TABLE_NAME}',
 }
 
 // const domainName = `${environment.ENV == 'production' ? '' : `${environment.ENV}-`}boilerplate-api.${environment.API_DOMAIN_NAME}`
@@ -19,15 +21,27 @@ const serverless: AWS = {
     runtime: 'nodejs14.x',
     region: 'us-east-2',
     versionFunctions: false,
+    environment: environment,
     iamRoleStatements: [
       {
         Effect: 'Allow',
         Action: ['lambda:InvokeFunction'],
         Resource: '*',
       },
+      {
+        Effect: 'Allow',
+        Action: [
+          'dynamodb:DescribeTable',
+          'dynamodb:Query',
+          'dynamodb:Scan',
+          'dynamodb:GetItem',
+          'dynamodb:PutItem',
+          'dynamodb:DeleteItem',
+        ],
+        Resource: 'arn:aws:dynamodb:${env:REGION}:*:table/${env:DYNAMODB_TABLE_NAME}',
+      },
     ],
     layers: [{ Ref: 'CommonLibsLambdaLayer' }],
-    environment: environment,
   },
   package: {
     individually: true,
@@ -36,6 +50,7 @@ const serverless: AWS = {
   plugins: [
     'serverless-webpack',
     'serverless-webpack-layers',
+    'serverless-dynamodb-local',
     'serverless-offline',
     'serverless-plugin-warmup',
     // 'serverless-domain-manager',
@@ -69,6 +84,14 @@ const serverless: AWS = {
         role: 'IamRoleLambdaExecution',
         logRetentionInDays: 14,
       },
+    },
+    dynamodb: {
+      start: {
+        port: 8001,
+        inMemory: true,
+        migrate: true,
+      },
+      stages: ['dev'],
     },
     // customDomain: {
     //   domainName,

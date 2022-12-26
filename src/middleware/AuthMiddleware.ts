@@ -1,12 +1,12 @@
-import { CustomContext } from '../interface/context'
+import { ICustomContext } from '../interface/context.interface'
 import { error } from '../util/response'
 import { HTTP_CODE } from '../interface/enums/http'
-import { IGlobalTokenPayload } from '../interface/auth'
+import { IGlobalTokenPayload } from '../interface/auth.interface'
 import { Auth } from '../util/auth'
 
 export const AuthMiddleware = () => {
   const before = async (request) => {
-    const context: CustomContext = request.context
+    const context: ICustomContext = request.context
     const { headers, requestContext } = request.event
     const { logger } = context
     logger.debug(`Initializing auth middleware`)
