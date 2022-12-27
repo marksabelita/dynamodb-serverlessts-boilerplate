@@ -51,8 +51,8 @@ const serverless: AWS = {
     'serverless-webpack',
     'serverless-webpack-layers',
     'serverless-dynamodb-local',
-    'serverless-offline',
     'serverless-plugin-warmup',
+    'serverless-offline',
     // 'serverless-domain-manager',
   ],
   layers: {
@@ -87,7 +87,7 @@ const serverless: AWS = {
     },
     dynamodb: {
       start: {
-        port: 8001,
+        port: 8002,
         inMemory: true,
         migrate: true,
       },
