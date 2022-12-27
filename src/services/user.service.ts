@@ -1,4 +1,5 @@
-import { getClient } from '../database/db'
+import { getDynamoDBClient } from '../database/dynamoDb'
+import { getRedisClient } from '../database/redisDb'
 import { UserModel } from '../models/user.models'
 import { ENVIRONMENT_VARIABLES, getEnvironmentVariableValue } from '../util/environments'
 import { PutItemCommand } from '@aws-sdk/client-dynamodb'
@@ -11,7 +12,7 @@ export class UserService {
   }
 
   createUser = async (): Promise<UserModel> => {
-    const client = getClient()
+    const dynamoDbClient = getDynamoDBClient()
     const tableName = getEnvironmentVariableValue(ENVIRONMENT_VARIABLES.DYNAMODB_TABLE_NAME)
 
     try {
@@ -21,7 +22,7 @@ export class UserService {
         ConditionExpression: 'attribute_not_exists(PK)',
       }
 
-      await client.send(new PutItemCommand(putItemData))
+      await dynamoDbClient.send(new PutItemCommand(putItemData))
       return this.user
     } catch (error) {
       /* eslint-disable no-console */

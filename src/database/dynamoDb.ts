@@ -1,8 +1,8 @@
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
-const client = null
 import { ENVIRONMENT_VARIABLES, getEnvironmentVariableValue } from '../util/environments'
+let client = null
 
-export const getClient = (): DynamoDBClient => {
+export const getDynamoDBClient = (): DynamoDBClient => {
   if (client) return client
   const offlineVar = getEnvironmentVariableValue(ENVIRONMENT_VARIABLES.IS_OFFLINE)
   const endpoint = getEnvironmentVariableValue(ENVIRONMENT_VARIABLES.DYNAMODB_LOCAL_ENDPOINT)
@@ -16,5 +16,6 @@ export const getClient = (): DynamoDBClient => {
     })
   }
 
-  return new DynamoDBClient({ region })
+  client = new DynamoDBClient({ region })
+  return client
 }

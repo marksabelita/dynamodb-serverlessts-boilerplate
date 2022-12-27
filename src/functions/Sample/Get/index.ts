@@ -8,8 +8,10 @@ export const getSample = async (
   _event: APIGatewayProxyEvent,
   context: ICustomContext<any>
 ): Promise<APIGatewayProxyResult> => {
+  context.callbackWaitsForEmptyEventLoop = false
+
   const { logger } = context
-  const userModel = new UserModel('marktest')
+  const userModel = new UserModel('test')
   const userService = new UserService(userModel)
 
   const result = await userService.createUser()

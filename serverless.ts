@@ -87,7 +87,7 @@ const serverless: AWS = {
     },
     dynamodb: {
       start: {
-        port: 8002,
+        port: 8001,
         inMemory: true,
         migrate: true,
       },
