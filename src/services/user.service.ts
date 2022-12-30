@@ -21,7 +21,10 @@ export class UserService {
         Item: this.user.toItem(),
         ConditionExpression: 'attribute_not_exists(PK)',
       }
+      const { longitude, latitude } = this.user.getUser()
+      const uId = `${this.user.pk}-${this.user.sk}`
 
+      await getRedisClient().geoadd('USER', latitude, longitude, uId)
       await dynamoDbClient.send(new PutItemCommand(putItemData))
       return this.user
     } catch (error) {

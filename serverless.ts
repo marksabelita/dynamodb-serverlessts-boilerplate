@@ -1,7 +1,10 @@
 import type { AWS } from '@serverless/typescript'
-import { sampleRoutes } from './src/routes/samples'
 import { dynamoDbResource } from './src/resources/stacks/dynamo'
 // import { authResource } from './src/resources/stacks/authorizers'
+
+// routes
+// import { sampleRoutes } from './src/routes/samples'
+import { userRoutes } from './src/routes/user.routes'
 
 const environment = {
   ENV: '${env:ENV}',
@@ -11,7 +14,6 @@ const environment = {
 }
 
 // const domainName = `${environment.ENV == 'production' ? '' : `${environment.ENV}-`}boilerplate-api.${environment.API_DOMAIN_NAME}`
-// const authorizer = { type: 'CUSTOM', authorizerId: { Ref: 'GPAuthorizer' } }
 
 const serverless: AWS = {
   service: 'lokal-boilerplate',
@@ -103,7 +105,7 @@ const serverless: AWS = {
   },
   useDotenv: true,
   functions: {
-    ...sampleRoutes,
+    ...userRoutes,
   },
   resources: {
     Resources: {

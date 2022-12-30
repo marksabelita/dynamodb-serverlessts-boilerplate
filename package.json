@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "local": "serverless offline --stage dev --useChildProccesses",
+    "local": "serverless offline --stage dev",
     "local:db:install": "sls dynamodb install",
     "local:db:start": "sls dynamodb start",
     "test": "npm run ts:check && npm run lint && echo \"Implement Test\"",
