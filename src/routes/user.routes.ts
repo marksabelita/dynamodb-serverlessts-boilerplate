@@ -15,4 +15,28 @@ export const userRoutes: AWS['functions'] = {
       },
     ],
   },
+  getUser: {
+    handler: 'src/handlers/User/get/index.handler',
+    events: [
+      {
+        http: {
+          cors: cors,
+          method: 'get',
+          path: '/user/{contactNumber}',
+        },
+      },
+    ],
+  },
+  updateUser: {
+    handler: 'src/handlers/User/patch/index.handler',
+    events: [
+      {
+        http: {
+          cors: cors,
+          method: 'patch',
+          path: '/user/{contactNumber}',
+        },
+      },
+    ],
+  },
 }

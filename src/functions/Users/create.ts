@@ -13,8 +13,7 @@ export const createUser = async (
   const { logger } = context
   const { body } = event
   const user: IUserInterfaceModel = JSON.parse(body)
-
-  const userModel = new UserModel(user)
+  const userModel = new UserModel({ ...user, active: 1 })
   const userService = new UserService(userModel)
 
   const result = await userService.createUser()

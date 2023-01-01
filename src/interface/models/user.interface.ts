@@ -5,16 +5,13 @@ export enum EUserType {
 
 export interface IUserInterfaceModel {
   contactNumber: string
-  firstName: string
-  lastName: string
-  userType: EUserType
-  birthday: string
-  skills?: string
-  experienceDetails?: string
-  yearStarted?: string
-  totalRating?: string
+  firstName?: string
+  lastName?: string
+  userType?: string
+  birthday?: string
   city?: string
   province?: string
-  latitude: number
-  longitude: number
+  latitude?: number
+  longitude?: number
+  active?: number
 }

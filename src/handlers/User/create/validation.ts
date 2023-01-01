@@ -11,4 +11,5 @@ export const createUserValidation = Joi.object<IUserInterfaceModel>({
   province: Joi.string().required(),
   latitude: Joi.number().required(),
   longitude: Joi.number().required(),
+  active: Joi.number().optional(),
 })
