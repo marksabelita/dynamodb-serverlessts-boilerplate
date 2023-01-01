@@ -39,4 +39,16 @@ export const userRoutes: AWS['functions'] = {
       },
     ],
   },
+  deleteUser: {
+    handler: 'src/handlers/User/delete/index.handler',
+    events: [
+      {
+        http: {
+          cors: cors,
+          method: 'delete',
+          path: '/user/{contactNumber}',
+        },
+      },
+    ],
+  },
 }

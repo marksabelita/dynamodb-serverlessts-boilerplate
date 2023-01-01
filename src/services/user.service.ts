@@ -1,13 +1,12 @@
 import { getDynamoDBClient } from '../database/dynamoDb'
 import { getRedisClient } from '../database/redisDb'
-// import { IUserInterfaceModel } from '../interface/models/user.interface'
 import { UserModel } from '../models/user.models'
 import { ENVIRONMENT_VARIABLES, getEnvironmentVariableValue } from '../util/environments'
 import {
   UpdateItemCommand,
   GetItemCommand,
   DynamoDBClient,
-  // UpdateItemCommand,
+  PutItemCommand,
 } from '@aws-sdk/client-dynamodb'
 import {
   getExpressionAttributeNamesTransformer,
@@ -75,6 +74,30 @@ export class UserService {
       }
 
       console.log(updateItemData)
+      await this.dynamoDbClient.send(new UpdateItemCommand(updateItemData))
+      return this.user
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  deleteUser = async (): Promise<UserModel> => {
+    const { contactNumber } = this.user.getUser()
+    const user = new UserModel({ contactNumber })
+    const activeStatus = { active: 0 }
+
+    try {
+      const updateItemData = {
+        TableName: this.tableName,
+        Key: user.keys(),
+        ConditionExpression: 'attribute_exists(PK)',
+        UpdateExpression: getUpdateExpressionTransformer(activeStatus),
+        ExpressionAttributeValues: getExpressionAttributeNamesTransformer({
+          active: { N: activeStatus.active.toString() },
+        }),
+      }
+
       await this.dynamoDbClient.send(new UpdateItemCommand(updateItemData))
       return this.user
     } catch (error) {
