@@ -3,7 +3,6 @@ import { dynamoDbResource } from './src/resources/stacks/dynamo'
 // import { authResource } from './src/resources/stacks/authorizers'
 
 // routes
-// import { sampleRoutes } from './src/routes/samples'
 import { userRoutes } from './src/routes/user.routes'
 
 const environment = {
